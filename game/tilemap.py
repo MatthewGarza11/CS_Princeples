@@ -14,6 +14,7 @@ class Map:
         self.tilewidth = len(self.data)
         self.tilewidth = self.tilewidth * TILESIZE
         self.height = self.tilewidth * TILESIZE
+        
 
 
 
