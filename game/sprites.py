@@ -22,6 +22,7 @@ class Player(Sprite):
         self.y = y * TILESIZE
         self.speed = 20
         self.vx, self.vy = 0, 0
+        self.coin_count = 0
     def get_keys(self):
         keys = pg.key.get_pressed()
         if keys[pg.K_w]:
@@ -38,7 +39,7 @@ class Player(Sprite):
             hits = pg.sprite.spritecollide(self, self.game.all_walls, False)
             if hits:
                 if self.vx > 0:
-                    self.x = hits[0].rect.left - self.rect.width
+                    self.x = hits[0].rect.left - TILESIZE
                 if self.vx < 0:
                     self.x = hits[0].rect.right
                 self.vx = 0
@@ -63,12 +64,12 @@ class Player(Sprite):
     def collide_with_stuff(self, group, kill):
         hits = pg.sprite.spritecollide(self, group, kill)
         if hits:
-            if str(hits[0]._._name_) == "Powerup":
-                self.speed = 100
+            if str(hits[0].__class__.__name__) == "Powerup":
+                self.speed += 20
                 print("I've gotten a powerup!")
-    #if you want to add poison or lava you have to add up here ^
-
-
+            if str(hits[0]._class_._name_) == "Coin":
+                print("I've got a Coin!!!")
+                self.coin_count += 1 
 
     def update(self):
         self.get_keys()
@@ -86,8 +87,8 @@ class Player(Sprite):
         self.rect.y = self.y
         self.collide_with_walls('y')
         # teleport the player to the other side of the screen
-        self.collide_with_stuff(self.game.all_powerups,True)
-
+        self.collide_with_stuff(self.game.all_powerups, True)
+        self.collide_with_stuff(self.game.all_coins, True)
 # added Mob - moving objects
 # it is a child class of Sprite
 class Mob(Sprite):
@@ -125,13 +126,26 @@ class Wall(Sprite):
         self.rect.x = x * TILESIZE
         self.rect.y = y * TILESIZE
 
-class Powerup(Sprite):
+# class Powerup(Sprite):
+#     def __init__(self, game, x, y):
+#         self.groups = game.all_sprites, game.all_powerups
+#         Sprite.__init__(self, self.groups)
+#         self.game = game
+#         self.image = pg.Surface((TILESIZE, TILESIZE))
+#         self.image.fill(PINK)
+#         self.rect = self.image.get_rect()
+#         self.rect.x = x * TILESIZE
+#         self.rect.y = y * TILESIZE
+
+
+
+class Coin(Sprite):
     def __init__(self, game, x, y):
-        self.groups = game.all_sprites, game.all_powerups
+        self.groups = game.all_sprites, game.all_coins
         Sprite.__init__(self, self.groups)
         self.game = game
         self.image = pg.Surface((TILESIZE, TILESIZE))
-        self.image.fill(PINK)
+        self.image.fill(GOLD)
         self.rect = self.image.get_rect()
         self.rect.x = x * TILESIZE
         self.rect.y = y * TILESIZE

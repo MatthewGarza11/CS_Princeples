@@ -9,6 +9,18 @@ from os import path
 # we are editing this file after installing git
 
 # create a game class that carries all the properties of the game and methods
+
+'''
+Goals:
+Rules:
+Feedback:
+Freedom:
+
+
+'''
+
+
+
 class Game:
   # initializes all the things we need to run the game...includes the game clock which can set the FPS
   def __init__(self):
@@ -30,6 +42,7 @@ class Game:
     self.all_sprites = pg.sprite.Group()
     self.all_walls = pg.sprite.Group()
     self.all_powerups = pg.sprite.Group()
+    self.all_coins = pg.sprite.Group()
     # instantiating the class to create the player object 
     # self.player = Player(self, 5, 5)
     # self.mob = Mob(self, 100, 100)
@@ -49,9 +62,11 @@ class Game:
         if tile == 'P':
           self.player = Player(self, col, row)
         if tile == 'U':
-          Powerup(self, col, row)
-    for i in range(1000):
-      Powerup(self, randint(0,WIDTH),(0, HEIGHT))
+        #   Powerup(self, col, row)
+        # if tile == 'C':
+          Coin(self, col, row)
+    # for i in range(1000):
+      # Powerup(self, randint(0,WIDTH),(0, HEIGHT))
 
 # this is a method
 # methods are like functions that are part of a class
@@ -91,6 +106,8 @@ class Game:
     self.all_sprites.draw(self.screen)
     self.draw_text(self.screen, "Awesome Sauce", 24, WHITE, WIDTH/2, HEIGHT/2)
     self.draw_text(self.screen, str(self.dt*1000), 24, WHITE, WIDTH/30, HEIGHT/30)
+    self.draw_text(self.screen,str(self.dt*1000), 24, WHITE, WIDTH/30, HEIGHT/30)
+    self.draw_text(self.screen, str(self.player.coin_count),24,WHITE, WIDTH-100, 50)
     pg.display.flip()
 
 if __name__ == "__main__":
