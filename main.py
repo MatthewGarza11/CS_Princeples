@@ -3,24 +3,23 @@
 # this is where we import libraries and modules
 import pygame as pg
 from settings import *
-from sprites import *
+# from sprites import *
+from sprites_side_scroller import *
 from tilemap import *
 from os import path
 # we are editing this file after installing git
 
+'''
+GOALS:
+RULES:
+FEEDBACK:
+FREEDOM:
+
+What's the sentence: Player 1 collides with enemy and enemy bounces off...
+
+'''
+
 # create a game class that carries all the properties of the game and methods
-
-'''
-Goals:
-Rules:
-Feedback:
-Freedom:
-
-
-'''
-
-
-
 class Game:
   # initializes all the things we need to run the game...includes the game clock which can set the FPS
   def __init__(self):
@@ -59,14 +58,12 @@ class Game:
           Wall(self, col, row)
         if tile == 'M':
           Mob(self, col, row)
-        if tile == 'P':
+        if tile == 'P':    
           self.player = Player(self, col, row)
         if tile == 'U':
-        #   Powerup(self, col, row)
-        # if tile == 'C':
+          Powerup(self, col, row)
+        if tile == 'C':
           Coin(self, col, row)
-    # for i in range(1000):
-      # Powerup(self, randint(0,WIDTH),(0, HEIGHT))
 
 # this is a method
 # methods are like functions that are part of a class
@@ -104,10 +101,8 @@ class Game:
   def draw(self):
     self.screen.fill(BLACK)
     self.all_sprites.draw(self.screen)
-    self.draw_text(self.screen, "Awesome Sauce", 24, WHITE, WIDTH/2, HEIGHT/2)
     self.draw_text(self.screen, str(self.dt*1000), 24, WHITE, WIDTH/30, HEIGHT/30)
-    self.draw_text(self.screen,str(self.dt*1000), 24, WHITE, WIDTH/30, HEIGHT/30)
-    self.draw_text(self.screen, str(self.player.coin_count),24,WHITE, WIDTH-100, 50)
+    self.draw_text(self.screen, str(self.player.coin_count), 24, WHITE, WIDTH-100, 50)
     pg.display.flip()
 
 if __name__ == "__main__":
@@ -117,4 +112,3 @@ if __name__ == "__main__":
   print("main is running...")
   g.new()
   g.run()
-#this game is fun
