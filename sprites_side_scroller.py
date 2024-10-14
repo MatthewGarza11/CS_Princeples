@@ -88,11 +88,18 @@ class Player(Sprite):
         hits = pg.sprite.spritecollide(self, group, kill)
         if hits:
             if str(hits[0].__class__.__name__) == "Powerup":
-                self.speed += 20
+                self.speed += 5
                 print("I've gotten a powerup!")
             if str(hits[0].__class__.__name__) == "Coin":
                 print("I got a coin!!!")
                 self.coin_count += 1
+            if str(hits[0].__class__.__name__) == "nerf":
+                print("I am cooked!!!")
+                self.speed += -30
+            if str(hits[0].__class__.__name__) == "boost":
+                print("Lets a Gooo!!!")
+                self.jump += 30
+
 
     def update(self):
         self.acc = vec(0, GRAVITY)
@@ -115,6 +122,9 @@ class Player(Sprite):
         # teleport the player to the other side of the screen
         self.collide_with_stuff(self.game.all_powerups, True)
         self.collide_with_stuff(self.game.all_coins, True)
+        self.collide_with_stuff(self.game.all_nerfs, True)
+        self.collide_with_stuff(self.game.all_boost, True)
+
 
 # added Mob - moving objects
 # it is a child class of Sprite
@@ -175,8 +185,24 @@ class Coin(Sprite):
         self.rect.x = x * TILESIZE
         self.rect.y = y * TILESIZE
 
-
-            
+class Nerf(Sprite):
+    def __init__(self, game, x, y):
+        self.groups = game.all_sprites, game.all_nerfs
+        Sprite.__init__(self, self.groups)
+        self.game = game
+        self.image = pg.Surface((TILESIZE, TILESIZE))
+        self.image.fill(MAGENTA)
+        self.rect = self.image.get_rect()
+        self.rect.x = x * TILESIZE
+        self.rect.y = y * TILESIZE        
   
-
-
+class Boost(Sprite):
+    def __init__(self, game, x, y):
+        self.groups = game.all_sprites, game.all_boost
+        Sprite.__init__(self, self.groups)
+        self.game = game
+        self.image = pg.Surface((TILESIZE, TILESIZE))
+        self.image.fill(CYAN)
+        self.rect = self.image.get_rect()
+        self.rect.x = x * TILESIZE
+        self.rect.y = y * TILESIZE        
