@@ -5,7 +5,7 @@ WIDTH = 1024
 HEIGHT = 768
 
 GRAVITY = 0.8
-FRICTION = -0.12
+FRICTION = -0.15
 
 
 # colors

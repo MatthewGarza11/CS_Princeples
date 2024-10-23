@@ -10,9 +10,9 @@ from os import path
 # we are editing this file after installing git
 
 '''
-GOALS:
-RULES:
-FEEDBACK:
+GOALS: avoid the rising lava while collecting as many coins as possible
+RULES: jump, get powerups, and avoid mobs that will slow you down
+FEEDBACK: add timer, health system, make mobs do damage, (add a map with two players)
 FREEDOM:
 
 What's the sentence: Player 1 collides with enemy and enemy bounces off...
@@ -33,8 +33,9 @@ class Game:
   # this is where the game creates the stuff you see and hear
   def load_data(self):
     self.game_folder = path.dirname(__file__)
-    self.map = Map(path.join(self.game_folder, 'level1.txt'))
-    # self.map = Map(path.join(self.game_folder, 'level2.txt'))
+    # self.map = Map(path.join(self.game_folder, 'level1.txt'))
+    self.map = Map(path.join(self.game_folder, 'level2.txt'))
+    self.map = Map(path.join(self.game_folder, 'level3.txt'))
   def new(self):
     self.load_data()
     print(self.map.data)
@@ -45,6 +46,7 @@ class Game:
     self.all_coins = pg.sprite.Group()
     self.all_nerfs = pg.sprite.Group()
     self.all_boost = pg.sprite.Group()
+    self.all_mobs = pg.sprite.Group()
     # instantiating the class to create the player object 
     # self.player = Player(self, 5, 5)
     # self.mob = Mob(self, 100, 100)
@@ -112,6 +114,7 @@ class Game:
     self.all_sprites.draw(self.screen)
     self.draw_text(self.screen, str(self.dt*1000), 24, WHITE, WIDTH/30, HEIGHT/30)
     self.draw_text(self.screen, str(self.player.coin_count), 24, WHITE, WIDTH-100, 50)
+    self.draw_text(self.screen, "lives:" + str(self.player.lives), 24, WHITE, WIDTH -32, HEIGHT -32)
     pg.display.flip()
 
 if __name__ == "__main__":
@@ -122,4 +125,3 @@ if __name__ == "__main__":
   g.new()
   g.run()
 
-  

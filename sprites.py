@@ -89,7 +89,7 @@ class Player(Sprite):
         # teleport the player to the other side of the screen
         self.collide_with_stuff(self.game.all_powerups, True)
         self.collide_with_stuff(self.game.all_coins, True)
-        self.collide_with_stuff(self.game.all_nerfs, True)
+        # self.collide_with_stuff(self.game.all_nerfs, True)
 
 # added Mob - moving objects
 # it is a child class of Sprite
@@ -150,16 +150,16 @@ class Coin(Sprite):
         self.rect.x = x * TILESIZE
         self.rect.y = y * TILESIZE
 
-class Nerf(Sprite):
-    def __init__(self, game, x, y):
-        self.groups = game.all_sprites, game.all_Nerfs
-        Sprite.__init__(self, self.groups)
-        self.game = game
-        self.image = pg.Surface((TILESIZE, TILESIZE))
-        self.image.fill(MAGENTA)
-        self.rect = self.image.get_rect()
-        self.rect.x = x * TILESIZE
-        self.rect.y = y * TILESIZE
+# class Nerf(Sprite):
+#     def __init__(self, game, x, y):
+#         self.groups = game.all_sprites, game.all_Nerfs
+#         Sprite.__init__(self, self.groups)
+#         self.game = game
+#         self.image = pg.Surface((TILESIZE, TILESIZE))
+#         self.image.fill(MAGENTA)
+#         self.rect = self.image.get_rect()
+#         self.rect.x = x * TILESIZE
+#         self.rect.y = y * TILESIZE
 
 
             

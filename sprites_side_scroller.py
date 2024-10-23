@@ -30,7 +30,8 @@ class Player(Sprite):
         self.speed = 5
         # self.vx, self.vy = 0, 0
         self.coin_count = 0
-        self.jump_power = 20
+        self.jump_power = 15.1
+        self.lives = 3
         self.jumping = False
     def get_keys(self):
         keys = pg.key.get_pressed()
@@ -93,12 +94,14 @@ class Player(Sprite):
             if str(hits[0].__class__.__name__) == "Coin":
                 print("I got a coin!!!")
                 self.coin_count += 1
-            if str(hits[0].__class__.__name__) == "nerf":
+            if str(hits[0].__class__.__name__) == "Nerf":
                 print("I am cooked!!!")
-                self.speed += -30
+                self.speed = 3
             if str(hits[0].__class__.__name__) == "boost":
                 print("Lets a Gooo!!!")
                 self.jump += 30
+            if str(hits[0].__class__.__name__) == "Mob":
+                self.lives -= 1
 
 
     def update(self):
@@ -124,13 +127,14 @@ class Player(Sprite):
         self.collide_with_stuff(self.game.all_coins, True)
         self.collide_with_stuff(self.game.all_nerfs, True)
         self.collide_with_stuff(self.game.all_boost, True)
+        self.collide_with_stuff(self.game.all_mobs, True)
 
 
 # added Mob - moving objects
 # it is a child class of Sprite
 class Mob(Sprite):
     def __init__(self, game, x, y):
-        self.groups = game.all_sprites
+        self.groups = game.all_sprites, game.all_mobs
         Sprite.__init__(self, self.groups)
         self.game = game
         self.image = pg.Surface((32, 32))
