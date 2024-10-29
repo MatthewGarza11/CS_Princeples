@@ -96,12 +96,17 @@ class Player(Sprite):
                 self.coin_count += 1
             if str(hits[0].__class__.__name__) == "Nerf":
                 print("I am cooked!!!")
-                self.speed = 3
+                self.speed = 1.75
             if str(hits[0].__class__.__name__) == "boost":
                 print("Lets a Gooo!!!")
-                self.jump += 30
+                self.jump += 1000
             if str(hits[0].__class__.__name__) == "Mob":
                 self.lives -= 1
+            if self.lives == 0 :
+                pass
+        
+                
+    
 
 
     def update(self):
@@ -142,7 +147,7 @@ class Mob(Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = x * TILESIZE
         self.rect.y = y * TILESIZE
-        self.speed = 25
+        self.speed = 15
 
     def update(self):
         self.rect.x += self.speed

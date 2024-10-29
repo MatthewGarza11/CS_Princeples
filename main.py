@@ -7,6 +7,7 @@ from settings import *
 from sprites_side_scroller import *
 from tilemap import *
 from os import path
+import sys 
 # we are editing this file after installing git
 
 '''
@@ -88,8 +89,12 @@ class Game:
       self.update()
       # output
       self.draw()
-
+  def quit(self):
     pg.quit()
+    sys.exit
+
+
+  pg.quit()
   # input
   def events(self):
     for event in pg.event.get():
@@ -100,6 +105,9 @@ class Game:
   def update(self):
     # update all the sprites...and I MEAN ALL OF THEM
     self.all_sprites.update()
+    if self.player.lives == 0:
+       self.show_death_screen()
+       self.run = False
   def draw_text(self, surface, text, size, color, x, y):
     font_name = pg.font.match_font('arial')
     font = pg.font.Font(font_name, size)
@@ -116,7 +124,22 @@ class Game:
     self.draw_text(self.screen, str(self.player.coin_count), 24, WHITE, WIDTH-100, 50)
     self.draw_text(self.screen, "lives:" + str(self.player.lives), 24, WHITE, WIDTH -32, HEIGHT -32)
     pg.display.flip()
+  def show_death_screen(self):
+        self.screen.fill(RED)
+        self.draw_text(self.screen, "You Suck", 42, WHITE, WIDTH/2, HEIGHT/2)
+        pg.display.flip()
+        self.wait_for_key()
 
+  def wait_for_key(self):
+        waiting = True
+        while waiting:
+            self.clock.tick(FPS)
+            for event in pg.event.get():
+                if event.type == pg.QUIT:
+                    waiting = False
+                    self.quit()
+                if event.type == pg.KEYUP:
+                    waiting = False
 if __name__ == "__main__":
   # instantiate
   print("main is running...")
@@ -124,4 +147,5 @@ if __name__ == "__main__":
   print("main is running...")
   g.new()
   g.run()
+  g.show_death_screen
 
