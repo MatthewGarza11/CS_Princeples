@@ -45,6 +45,8 @@ class Player(Sprite):
             self.vel.x += self.speed
         if keys[pg.K_SPACE]:
             self.jump()
+        if keys[pg.K_SPACE]:
+            self.jump()
     def jump(self):
         print("im trying to jump")
         print(self.vel.y)
@@ -95,7 +97,7 @@ class Player(Sprite):
                 print("I got a coin!!!")
                 self.coin_count += 1
             if str(hits[0].__class__.__name__) == "Nerf":
-                print("I am cooked!!!")
+                print("Im slow!!!")
                 self.speed = 1.75
             if str(hits[0].__class__.__name__) == "boost":
                 print("Lets a Gooo!!!")
@@ -208,6 +210,17 @@ class Nerf(Sprite):
 class Boost(Sprite):
     def __init__(self, game, x, y):
         self.groups = game.all_sprites, game.all_boost
+        Sprite.__init__(self, self.groups)
+        self.game = game
+        self.image = pg.Surface((TILESIZE, TILESIZE))
+        self.image.fill(CYAN)
+        self.rect = self.image.get_rect()
+        self.rect.x = x * TILESIZE
+        self.rect.y = y * TILESIZE        
+
+class PewPew(Sprite):
+    def __init__(self, game, x, y):
+        self.groups = game.all_sprites, game.all_pew_pew
         Sprite.__init__(self, self.groups)
         self.game = game
         self.image = pg.Surface((TILESIZE, TILESIZE))

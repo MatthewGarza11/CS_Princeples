@@ -20,6 +20,15 @@ What's the sentence: Player 1 collides with enemy and enemy bounces off...
 
 '''
 
+
+'''
+put all sources here:
+Mr. Cozort
+
+'''
+
+
+
 # create a game class that carries all the properties of the game and methods
 class Game:
   # initializes all the things we need to run the game...includes the game clock which can set the FPS
@@ -37,6 +46,7 @@ class Game:
     # self.map = Map(path.join(self.game_folder, 'level1.txt'))
     self.map = Map(path.join(self.game_folder, 'level2.txt'))
     self.map = Map(path.join(self.game_folder, 'level3.txt'))
+    self.map = Map(path.join(self.game_folder, 'level4.txt'))
   def new(self):
     self.load_data()
     print(self.map.data)
@@ -48,6 +58,7 @@ class Game:
     self.all_nerfs = pg.sprite.Group()
     self.all_boost = pg.sprite.Group()
     self.all_mobs = pg.sprite.Group()
+    # self.all.pew_pew = pg.sprite.Group()
     # instantiating the class to create the player object 
     # self.player = Player(self, 5, 5)
     # self.mob = Mob(self, 100, 100)
@@ -126,7 +137,7 @@ class Game:
     pg.display.flip()
   def show_death_screen(self):
         self.screen.fill(RED)
-        self.draw_text(self.screen, "You Suck", 42, WHITE, WIDTH/2, HEIGHT/2)
+        self.draw_text(self.screen, "You Died!!!", 42, WHITE, WIDTH/2, HEIGHT/2)
         pg.display.flip()
         self.wait_for_key()
 
