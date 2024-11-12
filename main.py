@@ -46,7 +46,7 @@ class Game:
     # self.map = Map(path.join(self.game_folder, 'level1.txt'))
     self.map = Map(path.join(self.game_folder, 'level2.txt'))
     self.map = Map(path.join(self.game_folder, 'level3.txt'))
-    self.map = Map(path.join(self.game_folder, 'level4.txt'))
+    # self.map = Map(path.join(self.game_folder, 'level4.txt'))
   def new(self):
     self.load_data()
     print(self.map.data)
@@ -58,6 +58,7 @@ class Game:
     self.all_nerfs = pg.sprite.Group()
     self.all_boost = pg.sprite.Group()
     self.all_mobs = pg.sprite.Group()
+    self.all_lava = pg.sprite.Group()
     # self.all.pew_pew = pg.sprite.Group()
     # instantiating the class to create the player object 
     # self.player = Player(self, 5, 5)
@@ -85,6 +86,8 @@ class Game:
           Nerf(self,col,row)
         if tile == 'B':
           Boost(self,col,row)
+        if tile =='L':
+          Lava(self,col,row)
           
 
 

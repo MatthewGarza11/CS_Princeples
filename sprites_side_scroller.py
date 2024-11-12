@@ -106,7 +106,9 @@ class Player(Sprite):
                 self.lives -= 1
             if self.lives == 0 :
                 pass
-        
+            if str(hits[0].__class__.__name__) == "Lava":
+                print("ouch!!!")
+                self.lives -=1
                 
     
 
@@ -135,6 +137,7 @@ class Player(Sprite):
         self.collide_with_stuff(self.game.all_nerfs, True)
         self.collide_with_stuff(self.game.all_boost, True)
         self.collide_with_stuff(self.game.all_mobs, True)
+        self.collide_with_lava(self.game.all_lava, True)
 
 
 # added Mob - moving objects
@@ -170,6 +173,17 @@ class Wall(Sprite):
         self.game = game
         self.image = pg.Surface((TILESIZE, TILESIZE))
         self.image.fill(BLUE)
+        self.rect = self.image.get_rect()
+        self.rect.x = x * TILESIZE
+        self.rect.y = y * TILESIZE
+
+class Lava(Sprite):
+    def __init__(self, game, x, y):
+        self.groups = game.all_sprites, game.all_lava
+        Sprite.__init__(self, self.groups)
+        self.game = game
+        self.image = pg.Surface((TILESIZE, TILESIZE))
+        self.image.fill(ORANGE)
         self.rect = self.image.get_rect()
         self.rect.x = x * TILESIZE
         self.rect.y = y * TILESIZE
