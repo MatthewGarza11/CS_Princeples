@@ -44,9 +44,10 @@ class Game:
   def load_data(self):
     self.game_folder = path.dirname(__file__)
     # self.map = Map(path.join(self.game_folder, 'level1.txt'))
-    self.map = Map(path.join(self.game_folder, 'level2.txt'))
-    self.map = Map(path.join(self.game_folder, 'level3.txt'))
+    # self.map = Map(path.join(self.game_folder, 'level2.txt'))
+    # self.map = Map(path.join(self.game_folder, 'level3.txt'))
     # self.map = Map(path.join(self.game_folder, 'level4.txt'))
+    self.map = Map(path.join(self.game_folder, 'level5.txt'))
   def new(self):
     self.load_data()
     print(self.map.data)
@@ -88,6 +89,8 @@ class Game:
           Boost(self,col,row)
         if tile =='L':
           Lava(self,col,row)
+        if tile == 'O':
+          Moving_Platform(self,col,row)
           
 
 
@@ -136,7 +139,7 @@ class Game:
     self.all_sprites.draw(self.screen)
     self.draw_text(self.screen, str(self.dt*1000), 24, WHITE, WIDTH/30, HEIGHT/30)
     self.draw_text(self.screen, str(self.player.coin_count), 24, WHITE, WIDTH-100, 50)
-    self.draw_text(self.screen, "lives:" + str(self.player.lives), 24, WHITE, WIDTH -32, HEIGHT -32)
+    self.draw_text(self.screen, "lives:" + str(self.player.lives), 24, WHITE, WIDTH -45,HEIGHT -32)
     pg.display.flip()
   def show_death_screen(self):
         self.screen.fill(RED)

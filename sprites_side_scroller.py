@@ -31,7 +31,7 @@ class Player(Sprite):
         # self.vx, self.vy = 0, 0
         self.coin_count = 0
         self.jump_power = 15.1
-        self.lives = 3
+        self.lives = 100
         self.jumping = False
     def get_keys(self):
         keys = pg.key.get_pressed()
@@ -57,6 +57,9 @@ class Player(Sprite):
             self.jumping = True
             self.vel.y = -self.jump_power
             print('still trying to jump...')
+    def check_lava_collision(self):
+        if pg.sprite.spritecollide(self, self.game.all_lava, False):  # Check collision with lava
+            self.take_damage()
             
     def collide_with_walls(self, dir):
         if dir == 'x':
@@ -103,12 +106,14 @@ class Player(Sprite):
                 print("Lets a Gooo!!!")
                 self.jump += 1000
             if str(hits[0].__class__.__name__) == "Mob":
-                self.lives -= 1
+                self.lives -= 25
             if self.lives == 0 :
                 pass
             if str(hits[0].__class__.__name__) == "Lava":
-                print("ouch!!!")
-                self.lives -=1
+                self.invunerable.event_time = floor(pg.time.get_ticks()/1000 )
+                self.lives -= 1    
+    
+
                 
     
 
@@ -137,7 +142,6 @@ class Player(Sprite):
         self.collide_with_stuff(self.game.all_nerfs, True)
         self.collide_with_stuff(self.game.all_boost, True)
         self.collide_with_stuff(self.game.all_mobs, True)
-        self.collide_with_lava(self.game.all_lava, True)
 
 
 # added Mob - moving objects
@@ -177,13 +181,36 @@ class Wall(Sprite):
         self.rect.x = x * TILESIZE
         self.rect.y = y * TILESIZE
 
-class Lava(Sprite):
+class Moving_Platform(Sprite):
     def __init__(self, game, x, y):
-        self.groups = game.all_sprites, game.all_lava
+        self.groups = game.all_sprites, game.all_walls
         Sprite.__init__(self, self.groups)
         self.game = game
         self.image = pg.Surface((TILESIZE, TILESIZE))
-        self.image.fill(ORANGE)
+        self.image.fill(BLUE)
+        self.rect = self.image.get_rect()
+        self.rect.x = x * TILESIZE
+        self.rect.y = y * TILESIZE
+        self.speed = 10
+    def update(self):
+        self.rect.x += self.speed
+        # self.rect.y += self.speed
+        if self.rect.x > WIDTH or self.rect.x < 0:
+            self.speed *= -1
+            self.rect.y += 32
+        if self.rect.y > HEIGHT:
+            self.rect.y = 0
+
+        if self.rect.colliderect(self.game.player):
+            self.speed *= -1
+
+class Lava(pg.sprite.Sprite):
+    def __init__(self, game, x, y):
+        self.groups = game.all_sprites, game.all_lava  
+        super().__init__(self.groups)
+        self.game = game
+        self.image = pg.Surface((TILESIZE, TILESIZE))
+        self.image.fill(ORANGE)  # Set lava color
         self.rect = self.image.get_rect()
         self.rect.x = x * TILESIZE
         self.rect.y = y * TILESIZE
