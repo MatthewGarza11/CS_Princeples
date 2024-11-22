@@ -7,6 +7,8 @@ HEIGHT = 768
 GRAVITY = 0.8
 FRICTION = -0.15
 
+LAVA_RISE_SPEED = 15
+
 
 # colors
 BLACK = (0,0,0)
@@ -21,3 +23,4 @@ CYAN = (0,255,255)
 ORANGE = (255, 95, 31)
 
 COINS = 0
+
