@@ -109,9 +109,12 @@ class Player(Sprite):
                 self.lives -= 25
             if self.lives == 0 :
                 pass
-            if str(hits[0].__class__.__name__) == "Lava":
-                self.invunerable.event_time = floor(pg.time.get_ticks()/1000 )
-                self.lives -= 1    
+            # if str(hits[0].__class__.__name__) == "Lava":
+            #     self.invunerable.event_time = floor(pg.time.get_ticks()/1000 )
+            #     self.lives -= 1   
+            if str(hits[0].__class__.__name__) == "Finish":
+                print("Nice Job!!!")
+                pass
     
 
                 
@@ -142,6 +145,7 @@ class Player(Sprite):
         self.collide_with_stuff(self.game.all_nerfs, True)
         self.collide_with_stuff(self.game.all_boost, True)
         self.collide_with_stuff(self.game.all_mobs, True)
+        # self.collide_with_stuff(self.game.all_finish, True)
 
 
 # added Mob - moving objects
@@ -177,6 +181,17 @@ class Wall(Sprite):
         self.game = game
         self.image = pg.Surface((TILESIZE, TILESIZE))
         self.image.fill(BLUE)
+        self.rect = self.image.get_rect()
+        self.rect.x = x * TILESIZE
+        self.rect.y = y * TILESIZE
+
+class Finish(Sprite):
+    def __init__(self, game, x, y):
+        self.groups = game.all_sprites, game.all_finish
+        Sprite.__init__(self, self.groups)
+        self.game = game
+        self.image = pg.Surface((TILESIZE, TILESIZE))
+        self.image.fill(WHITE)
         self.rect = self.image.get_rect()
         self.rect.x = x * TILESIZE
         self.rect.y = y * TILESIZE
