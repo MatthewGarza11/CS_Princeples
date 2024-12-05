@@ -24,3 +24,4 @@ ORANGE = (255, 95, 31)
 
 COINS = 0
 
+HS_FILE = "Highscore.txt"

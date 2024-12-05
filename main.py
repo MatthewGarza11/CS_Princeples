@@ -19,7 +19,7 @@ import sys
 # '''
 # put all sources here:
 # Mr. Cozort
-#Chat GPT
+#Chat GPT 
 # '''
 
 
@@ -35,8 +35,22 @@ class Game:
 
     def load_data(self):
         self.game_folder = path.dirname(__file__)
-        self.map = Map(path.join(self.game_folder, 'level3.txt'))  # Load only one map for now
+        # self.map = Map(path.join(self.game_folder, 'level1.txt'))
+        # self.map = Map(path.join(self.game_folder, 'level2.txt'))
+        self.map = Map(path.join(self.game_folder, 'level3.txt'))
+        # self.map = Map(path.join(self.game_folder, 'level4.txt'))
+        # self.map = Map(path.join(self.game_folder, 'level5.txt'))        
+        # self.game_folder = path.dirname(__file__)
+        # with open(path.join(self.game_folder, HS_FILE), 'w') as f:
+        #     f.write(str(0))
         #figure out how to make more load in
+        try:
+            with open(path.join(self.game_folder, HS_FILE),'r') as f: 
+                self.highscore = int(f.read())
+        except:
+            self.highscore = 0 
+            with open(path.join(self.game_folder, HS_FILE),'w') as f:
+                f.write(str(0))
 
     def new(self):
         self.load_data()
@@ -48,6 +62,7 @@ class Game:
         self.all_boost = pg.sprite.Group()
         self.all_mobs = pg.sprite.Group()
         self.all_lava = pg.sprite.Group()
+        self.all_player = pg.sprite.Group()
         #adds those sprite goups to game
 
         # Initialize map objects based on the tilemap
@@ -87,6 +102,11 @@ class Game:
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 self.playing = False
+                if self.score > self.highscore:
+                    with open(path.join(self.game_folder, HS_FILE), 'w') as f:
+                        f.write(str(self.score))
+                self.running = False
+                self.quit 
 
     def update(self):
         self.all_sprites.update()
@@ -108,6 +128,7 @@ class Game:
         pg.display.flip()
         self.wait_for_key()
         #the screem that shows up once player runs out of lives
+    
     def wait_for_key(self):
         waiting = True
         while waiting:
@@ -134,6 +155,7 @@ class Game:
         self.draw_text(f"{self.dt * 1000:.1f} ms", 24, WHITE, WIDTH / 30, HEIGHT / 30)
         self.draw_text(f"Coins: {self.player.coin_count}", 24, WHITE, WIDTH - 100, 50)
         self.draw_text(f"Lives: {self.player.lives}", 24, WHITE, WIDTH - 100, HEIGHT - 30)
+        # self.draw_text(f"Highscore: {self.player.lives}", 24, WHITE, WIDTH - 100, HEIGHT - 30)
         pg.display.flip()
 #draws text onto the game screen
 if __name__ == "__main__":
