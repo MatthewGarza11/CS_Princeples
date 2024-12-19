@@ -1,4 +1,4 @@
-# # This code was created by Matthew Garza
+# This code was created by Matthew Garza
 
 # # this is where we import libraries and modules
 # import pygame as pg
@@ -119,6 +119,14 @@
 #           self.playing = False
 #   # process
 #   # this is where the game updates the game state
+#   def show_death_screen(self):
+#         self.screen.fill(RED)
+#         self.draw_text("Game Over!", 42, WHITE, WIDTH / 2, HEIGHT / 2)
+#         self.draw_text("Press any key to restart", 32, WHITE, WIDTH / 2, HEIGHT / 2 + 50)
+#         pg.display.flip()
+#         self.wait_for_key()
+#         #the screem that shows up once player runs out of lives
+        
 #   def update(self):
 #     # update all the sprites...and I MEAN ALL OF THEM
 #     self.all_sprites.update()

@@ -7,7 +7,7 @@ from random import randint
 
 vec = pg.math.Vector2
 
-
+SPRITESHEET = 'spritesheet.png'
 
 # create the player class with a superclass of Sprite
 class Player(Sprite):
@@ -18,7 +18,9 @@ class Player(Sprite):
         Sprite.__init__(self, self.groups)
         self.game = game
         self.image = pg.Surface((32, 32))
-        self.image.fill((255, 0, 0))
+        self.image.fill((255, 0, 0))\
+        self.image = self.standing_image
+        # self.image = self.game.player_img
         self.rect = self.image.get_rect()
         # self.rect.x = x
         # self.rect.y = y
@@ -29,6 +31,7 @@ class Player(Sprite):
         self.acc = vec(0,0)
         self.speed = 5
         # self.vx, self.vy = 0, 0
+        self.highscore = 0
         self.coin_count = 0
         self.jump_power = 15.1
         self.lives = 100
@@ -99,6 +102,7 @@ class Player(Sprite):
             if str(hits[0].__class__.__name__) == "Coin":
                 print("I got a coin!!!")
                 self.coin_count += 1
+                self.game.score += 1
             if str(hits[0].__class__.__name__) == "Nerf":
                 print("Im slow!!!")
                 self.speed = 1.75
@@ -184,11 +188,12 @@ class Wall(Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = x * TILESIZE
         self.rect.y = y * TILESIZE
+        
 
-class Finish(Sprite):
+class FinishLine(pg.sprite.Sprite):
     def __init__(self, game, x, y):
-        self.groups = game.all_sprites, game.all_finish
-        Sprite.__init__(self, self.groups)
+        self.groups = game.all_sprites, game.all_finish_lines
+        pg.sprite.Sprite.__init__(self, self.groups)
         self.game = game
         self.image = pg.Surface((TILESIZE, TILESIZE))
         self.image.fill(WHITE)
