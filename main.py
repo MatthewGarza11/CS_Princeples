@@ -109,6 +109,7 @@ class Game:
             lava.rect.y -= LAVA_RISE_SPEED * self.dt
             if lava.rect.colliderect(self.player.rect):
                 self.player.lives = 0
+                #asked chat gpt how to make working lava
 
         # Check for coin collection
         hits = pg.sprite.spritecollide(self.player, self.all_coins, True)  # True means remove the coin

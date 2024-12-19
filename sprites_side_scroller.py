@@ -7,7 +7,6 @@ from random import randint
 
 vec = pg.math.Vector2
 
-SPRITESHEET = 'spritesheet.png'
 
 # create the player class with a superclass of Sprite
 class Player(Sprite):
@@ -18,8 +17,7 @@ class Player(Sprite):
         Sprite.__init__(self, self.groups)
         self.game = game
         self.image = pg.Surface((32, 32))
-        self.image.fill((255, 0, 0))\
-        self.image = self.standing_image
+        self.image.fill((255, 0, 0))
         # self.image = self.game.player_img
         self.rect = self.image.get_rect()
         # self.rect.x = x
