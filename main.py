@@ -9,9 +9,9 @@ import sys
 
 
 '''
- GOALS: avoid the rising lava while collecting as many coins as possible
- RULES: jump, get powerups, and avoid mobs that will slow you down
- FEEDBACK: health system, make mobs do damage, rising lava, death screen, finish point
+ GOALS: avoid the rising lava while collecting as many coins as possible 
+ RULES: 'A' and 'D' on the keyboard to move left and right and the spacebar to jump 
+FEEDBACK: health system, make mobs do damage, rising lava, death screen, finish point
  FREEDOM: player can move around the map with limited time until lava reaches them
 
 # What's the sentence: Player 1 collides with enemy and enemy bounces off...
